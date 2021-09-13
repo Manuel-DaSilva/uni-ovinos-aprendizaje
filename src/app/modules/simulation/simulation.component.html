@@ -4,4 +4,12 @@
     style="background-image: url('assets/images/ovino1.jpeg')"
   ></div>
   <p class="text-6xl uppercase font-light">Simulación</p>
+  <pre>
+    {{ simulationResult$ | async | json }}
+  </pre>
+  <button (click)="updateSomeValue(2)" class="mx-2 p-4 border">2</button>
+  <button (click)="updateSomeValue(3)" class="mx-2 p-4 border">3</button>
+  <button (click)="updateSomeValue(4)" class="mx-2 p-4 border">4</button>
+  <button (click)="updateSomeValue(5)" class="mx-2 p-4 border">5</button>
+  <button (click)="updateSomeValue(6)" class="mx-2 p-4 border">6</button>
 </header>
