@@ -1,0 +1,11 @@
+<ng-container *ngFor="let c of content">
+  <!-- "card" -->
+  <div>
+    <h1>{{ c.title }}</h1>
+    <h2>{{ c.description }}</h2>
+    <img [src]="c.imageUrl" alt="" />
+  </div>
+</ng-container>
+<ng-container *ngIf="content.length <= 0">
+  No content found for this category
+</ng-container>

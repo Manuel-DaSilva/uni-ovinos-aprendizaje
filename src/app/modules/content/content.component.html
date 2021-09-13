@@ -1,1 +1,8 @@
-<p>content works!</p>
+<ng-container *ngFor="let c of categories">
+  <!-- "card" -->
+  <div [routerLink]="c.id.toString()">
+    <h1>{{ c.title }}</h1>
+    <h2>{{ c.description }}</h2>
+    <img [src]="c.imageUrl" alt="" />
+  </div>
+</ng-container>
