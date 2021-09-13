@@ -1,1 +1,18 @@
-<p>test works!</p>
+<ng-container *ngIf="question">
+  <p>{{ question.text }}</p>
+  <hr />
+  <ul *ngIf="showOptions; else refreshButton">
+    <li
+      class="mb-4"
+      *ngFor="let a of question.answers; let i = index"
+      (click)="answerQuestion(i)"
+    >
+      {{ a }}
+    </li>
+  </ul>
+  <ng-template #refreshButton>
+    <div *ngIf="wasCorrect" class="w-full h-20 bg-green-800">Correct</div>
+    <div *ngIf="!wasCorrect" class="w-full h-20 bg-red-800">Wrong</div>
+    <button (click)="refreshQuestion()">Refresh</button>
+  </ng-template>
+</ng-container>
