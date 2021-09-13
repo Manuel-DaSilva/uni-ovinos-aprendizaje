@@ -5,6 +5,7 @@ export const questions: Question[] = [
     text: 'random question',
     answers: ['answer 1', 'answer 2', 'answer 3', 'answer 4'],
     correctAnswerIndex: 0,
+    imageUrl: 'https://picsum.photos/200/300',
   },
   {
     text: 'random question 2 ',
@@ -25,6 +26,7 @@ export const questions: Question[] = [
     text: 'random question 5',
     answers: ['answer 1', 'answer 2', 'answer 3', 'answer 4'],
     correctAnswerIndex: 6,
+    imageUrl: 'https://picsum.photos/200/300',
   },
   {
     text: 'random question 6',

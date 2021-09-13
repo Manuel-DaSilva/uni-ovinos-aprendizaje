@@ -1,5 +1,10 @@
 <ng-container *ngIf="question">
   <p>{{ question.text }}</p>
+  <img
+    *ngIf="question.imageUrl"
+    [src]="question.imageUrl"
+    [alt]="question.text"
+  />
   <hr />
   <ul *ngIf="showOptions; else refreshButton">
     <li
