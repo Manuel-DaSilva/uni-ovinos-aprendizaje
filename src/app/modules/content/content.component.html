@@ -1,8 +1,15 @@
-<ng-container *ngFor="let c of categories">
-  <!-- "card" -->
-  <div [routerLink]="c.id.toString()">
-    <h1>{{ c.title }}</h1>
-    <h2>{{ c.description }}</h2>
-    <img [src]="c.imageUrl" alt="" />
+<h1 class="text-3xl font-bold">Contenido</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div *ngFor="let c of categories">
+    <p-card styleClass="p-card-shadow" [routerLink]="c.id.toString()">
+      <div
+        class="w-full h-60 bg-center bg-cover bg-no-repeat rounded-t-md"
+        [style]="{ backgroundImage: c.imageUrl | backgroundImage }"
+      ></div>
+      <h1 class="text-xl font-bold">{{ c.title }}</h1>
+      <p>
+        {{ c.description }}
+      </p>
+    </p-card>
   </div>
-</ng-container>
+</div>

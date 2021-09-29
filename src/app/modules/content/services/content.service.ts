@@ -14,6 +14,11 @@ export class ContentService {
     return categories;
   }
 
+  getCategoryById(id: number): ContentCategory {
+    const index = categories.findIndex((cat) => cat.id === id);
+    return categories[index];
+  }
+
   getContentByCategory(id: number): ContentItem[] {
     const allContent = content;
     return allContent.filter((c) => c.categoryId == id);

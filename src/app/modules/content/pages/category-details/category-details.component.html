@@ -1,11 +1,27 @@
-<ng-container *ngFor="let c of content">
-  <!-- "card" -->
-  <div>
-    <h1>{{ c.title }}</h1>
-    <h2>{{ c.description }}</h2>
-    <img [src]="c.imageUrl" alt="" />
+<div class="flex justify-between" *ngIf="category">
+  <h1 class="text-3xl font-bold">{{ category.title }}</h1>
+  <p-button
+    routerLink="/content"
+    label="Regresar"
+    icon="pi pi-arrow-left"
+  ></p-button>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div *ngFor="let c of content">
+    <p-card styleClass="p-card-shadow ">
+      <div
+        class="w-full h-60 bg-center bg-cover bg-no-repeat rounded-t-md"
+        [style]="{ backgroundImage: c.imageUrl | backgroundImage }"
+      ></div>
+      <h1 class="text-xl font-bold">{{ c.title }}</h1>
+      <p>
+        {{ c.description }}
+      </p>
+    </p-card>
   </div>
-</ng-container>
+</div>
+
 <ng-container *ngIf="content.length <= 0">
   No content found for this category
 </ng-container>

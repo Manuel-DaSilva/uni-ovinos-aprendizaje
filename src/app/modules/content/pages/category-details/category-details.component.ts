@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ContentService } from '../../services/content.service';
 import { ContentItem } from '../../models/content-item.model';
+import { ContentCategory } from '../../models/content-category.model';
 
 @Component({
   selector: 'app-category-details',
@@ -11,7 +12,7 @@ import { ContentItem } from '../../models/content-item.model';
 })
 export class CategoryDetailsComponent {
   content: ContentItem[] = [];
-
+  category: ContentCategory | null = null;
   constructor(
     private activatedRoute: ActivatedRoute,
     private contentService: ContentService,
@@ -25,5 +26,6 @@ export class CategoryDetailsComponent {
     }
 
     this.content = this.contentService.getContentByCategory(id);
+    this.category = this.contentService.getCategoryById(id);
   }
 }

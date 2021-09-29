@@ -5,10 +5,11 @@ import { ContentService } from './services/content.service';
 @Component({
   selector: 'app-content',
   templateUrl: './content.component.html',
+  styleUrls: ['./content.component.scss'],
 })
 export class ContentComponent {
   categories: ContentCategory[];
   constructor(private contentService: ContentService) {
-    this.categories = contentService.getCategories();
+    this.categories = this.contentService.getCategories();
   }
 }
