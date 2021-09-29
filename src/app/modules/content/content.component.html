@@ -1,4 +1,4 @@
-<h1 class="text-3xl font-bold">Contenido</h1>
+<h1 class="text-3xl font-bold mb-8 text-gray-700">Contenido</h1>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
   <div *ngFor="let c of categories">
     <p-card styleClass="p-card-shadow" [routerLink]="c.id.toString()">
@@ -6,10 +6,12 @@
         class="w-full h-60 bg-center bg-cover bg-no-repeat rounded-t-md"
         [style]="{ backgroundImage: c.imageUrl | backgroundImage }"
       ></div>
-      <h1 class="text-xl font-bold">{{ c.title }}</h1>
-      <p>
-        {{ c.description }}
-      </p>
+      <div class="p-2">
+        <h1 class="text-xl font-bold">{{ c.title }}</h1>
+        <p>
+          {{ c.description }}
+        </p>
+      </div>
     </p-card>
   </div>
 </div>

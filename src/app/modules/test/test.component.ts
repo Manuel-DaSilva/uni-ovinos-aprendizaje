@@ -10,6 +10,20 @@ export class TestComponent {
   question: Question | null = null;
   showOptions = true;
   wasCorrect = false;
+  errorMessage = [
+    {
+      severity: 'error',
+      summary: 'Incorrecto',
+      detail: 'La respuesta fue incorrecta.',
+    },
+  ];
+  successMessage = [
+    {
+      severity: 'success',
+      summary: 'Correcto',
+      detail: 'Respondiste bien la pregunta!',
+    },
+  ];
   constructor(private questionService: QuestionService) {
     this.refreshQuestion();
   }
