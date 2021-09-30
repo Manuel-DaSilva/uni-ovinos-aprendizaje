@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { SimulationInput } from './models/simulation-input.model';
 import { SimulationStore } from './state/simulation.store';
-
+import { debounceTime } from 'rxjs/operators';
 @Component({
   selector: 'app-simulation',
   templateUrl: './simulation.component.html',
@@ -72,38 +72,40 @@ export class SimulationComponent implements OnInit, OnDestroy {
         this.simulationStore.reactToInputChanges(input);
       }
     });
-    this.subs = this.simulationResult$.subscribe((data) => {
-      this.chartData = {
-        labels: [
-          'Número se corderos',
-          'Número de corderas',
-          'Número de borregos',
-          'Número de borregas',
-          'Número de ovejas',
-          'Número de padrotes',
-        ],
-        datasets: [
-          {
-            data: [
-              data.result?.cM,
-              data.result?.cF,
-              data.result?.bM,
-              data.result?.bF,
-              data.result?.o,
-              data.result?.p,
-            ],
-            backgroundColor: [
-              '#d9ed92',
-              '#b5e48c',
-              '#99d98c',
-              '#76c893',
-              '#52b69a',
-              '#34a0a4',
-            ],
-          },
-        ],
-      };
-    });
+    this.subs = this.simulationResult$
+      .pipe(debounceTime(500))
+      .subscribe((data) => {
+        this.chartData = {
+          labels: [
+            'Número se corderos',
+            'Número de corderas',
+            'Número de borregos',
+            'Número de borregas',
+            'Número de ovejas',
+            'Número de padrotes',
+          ],
+          datasets: [
+            {
+              data: [
+                data.result?.cM,
+                data.result?.cF,
+                data.result?.bM,
+                data.result?.bF,
+                data.result?.o,
+                data.result?.p,
+              ],
+              backgroundColor: [
+                '#d9ed92',
+                '#b5e48c',
+                '#99d98c',
+                '#76c893',
+                '#52b69a',
+                '#34a0a4',
+              ],
+            },
+          ],
+        };
+      });
   }
 
   updateSomeValue(n: number) {}
