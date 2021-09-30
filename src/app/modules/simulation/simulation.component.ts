@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 import { SimulationInput } from './models/simulation-input.model';
 import { SimulationStore } from './state/simulation.store';
 
@@ -8,10 +9,11 @@ import { SimulationStore } from './state/simulation.store';
   templateUrl: './simulation.component.html',
   providers: [SimulationStore],
 })
-export class SimulationComponent implements OnInit {
+export class SimulationComponent implements OnInit, OnDestroy {
   simulationResult$ = this.simulationStore.simulationResult$;
   inputForm: FormGroup;
   chartData: any;
+  subs: Subscription = Subscription.EMPTY;
   constructor(private simulationStore: SimulationStore) {
     this.inputForm = new FormGroup({
       cM: new FormControl(0, [Validators.required, Validators.min(0)]),
@@ -48,6 +50,11 @@ export class SimulationComponent implements OnInit {
       ]),
     });
   }
+  ngOnDestroy(): void {
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
+  }
   ngOnInit(): void {
     this.inputForm.valueChanges.subscribe((formValues) => {
       if (this.inputForm.valid) {
@@ -65,8 +72,7 @@ export class SimulationComponent implements OnInit {
         this.simulationStore.reactToInputChanges(input);
       }
     });
-
-    this.simulationResult$.subscribe((data) => {
+    this.subs = this.simulationResult$.subscribe((data) => {
       this.chartData = {
         labels: [
           'Número se corderos',
