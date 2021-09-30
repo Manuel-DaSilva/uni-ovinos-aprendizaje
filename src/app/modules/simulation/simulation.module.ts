@@ -3,15 +3,16 @@ import { CommonModule } from '@angular/common';
 
 import { SimulationRoutingModule } from './simulation-routing.module';
 import { SimulationComponent } from './simulation.component';
-
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    SimulationComponent
-  ],
+  declarations: [SimulationComponent],
   imports: [
     CommonModule,
-    SimulationRoutingModule
-  ]
+    SimulationRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+  ],
 })
-export class SimulationModule { }
+export class SimulationModule {}

@@ -1,15 +1,211 @@
-<header class="flex items-center justify-center my-2">
+<header class="flex items-center justify-center mb-14">
   <div
     class="h-40 w-40 mr-8 rounded-full bg-center bg-cover"
     style="background-image: url('assets/images/ovino1.jpeg')"
   ></div>
   <p class="text-6xl uppercase font-light">Simulación</p>
-  <pre>
-    {{ simulationResult$ | async | json }}
-  </pre>
-  <button (click)="updateSomeValue(2)" class="mx-2 p-4 border">2</button>
-  <button (click)="updateSomeValue(3)" class="mx-2 p-4 border">3</button>
-  <button (click)="updateSomeValue(4)" class="mx-2 p-4 border">4</button>
-  <button (click)="updateSomeValue(5)" class="mx-2 p-4 border">5</button>
-  <button (click)="updateSomeValue(6)" class="mx-2 p-4 border">6</button>
 </header>
+
+<main>
+  <form
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2"
+    [formGroup]="inputForm"
+  >
+    <div class="bg-gray-300 rounded-md p-4 flex flex-col items-center">
+      <div class="p-field mb-2">
+        <h5>Número de corderos</h5>
+        <p-inputNumber
+          formControlName="cM"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          inputId="horizontal"
+          spinnerMode="horizontal"
+          [step]="1"
+          [min]="0"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="p-field mb-2">
+        <h5>Número de corderas</h5>
+        <p-inputNumber
+          formControlName="cF"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          inputId="horizontal"
+          spinnerMode="horizontal"
+          [step]="1"
+          [min]="0"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="p-field mb-2">
+        <h5>Número de borregos</h5>
+        <p-inputNumber
+          formControlName="bM"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          inputId="horizontal"
+          spinnerMode="horizontal"
+          [step]="1"
+          [min]="0"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="p-field mb-2">
+        <h5>Número de borregas</h5>
+        <p-inputNumber
+          formControlName="bF"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          inputId="horizontal"
+          spinnerMode="horizontal"
+          [step]="1"
+          [min]="0"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="p-field mb-2">
+        <h5>Número de ovejas</h5>
+        <p-inputNumber
+          formControlName="o"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          inputId="horizontal"
+          spinnerMode="horizontal"
+          [step]="1"
+          [min]="0"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        >
+        </p-inputNumber>
+      </div>
+      <div class="p-field mb-4">
+        <h5>Número de padrotes</h5>
+        <p-inputNumber
+          formControlName="p"
+          [showButtons]="true"
+          buttonLayout="horizontal"
+          inputId="horizontal"
+          spinnerMode="horizontal"
+          [step]="1"
+          [min]="0"
+          decrementButtonClass="p-button-secondary"
+          incrementButtonClass="p-button-secondary"
+          incrementButtonIcon="pi pi-plus"
+          decrementButtonIcon="pi pi-minus"
+        >
+        </p-inputNumber>
+      </div>
+    </div>
+    <div class="bg-gray-300 rounded-md p-4">
+      <div class="mb-4">
+        <h5 class="mb-4">
+          Relación macho/hembra: ({{ inputForm.get("rmh")?.value }}/25)
+        </h5>
+        <p-slider
+          [min]="1"
+          [max]="25"
+          [step]="1"
+          formControlName="rmh"
+        ></p-slider>
+      </div>
+      <div class="flex justify-center">
+        <div class="p-field mb-4">
+          <h5>Índice de natalidad</h5>
+          <p-inputNumber
+            formControlName="in"
+            [showButtons]="true"
+            buttonLayout="horizontal"
+            inputId="horizontal"
+            spinnerMode="horizontal"
+            [step]="1"
+            [min]="0"
+            decrementButtonClass="p-button-secondary"
+            incrementButtonClass="p-button-secondary"
+            incrementButtonIcon="pi pi-plus"
+            decrementButtonIcon="pi pi-minus"
+          >
+          </p-inputNumber>
+        </div>
+      </div>
+      <div class="mb-8">
+        <h5 class="mb-4">
+          Mortalidad en crías: {{ inputForm.get("mc")?.value }}%
+        </h5>
+        <p-slider
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          formControlName="mc"
+        ></p-slider>
+      </div>
+      <div class="mb-8">
+        <h5 class="mb-4">
+          Mortalidad en adultos: {{ inputForm.get("ma")?.value }}%
+        </h5>
+        <p-slider
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          formControlName="ma"
+        ></p-slider>
+      </div>
+      <div class="mb-8">
+        <h5 class="mb-4">Eliminaciones: {{ inputForm.get("e")?.value }}%</h5>
+        <p-slider
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          formControlName="e"
+        ></p-slider>
+      </div>
+      <div class="mb-8">
+        <h5 class="mb-4">Reemplazo: {{ inputForm.get("r")?.value }}%</h5>
+        <p-slider
+          [min]="0"
+          [max]="100"
+          [step]="1"
+          formControlName="r"
+        ></p-slider>
+      </div>
+    </div>
+    <div>
+      <div class="bg-gray-300 rounded-md p-4 mb-4">
+        <div *ngIf="(simulationResult$ | async)?.result as results">
+          <h2><b>Número se corderos: </b>{{ results.cM }}</h2>
+
+          <h2><b>Número de corderas: </b>{{ results.cF }}</h2>
+
+          <h2><b>Número de borregos: </b>{{ results.bM }}</h2>
+
+          <h2><b>Número de borregas: </b>{{ results.bF }}</h2>
+
+          <h2><b>Número de ovejas: </b>{{ results.o }}</h2>
+
+          <h2><b>Número de padrotes: </b>{{ results.p }}</h2>
+
+          <h2><b>Número total de animales: </b>{{ results.total }}</h2>
+        </div>
+      </div>
+      <p-chart type="pie" [data]="chartData"></p-chart>
+    </div>
+  </form>
+</main>

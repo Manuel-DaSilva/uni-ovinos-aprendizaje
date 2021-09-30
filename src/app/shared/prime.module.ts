@@ -4,6 +4,10 @@ import { MenubarModule } from 'primeng/menubar';
 import { CardModule } from 'primeng/card';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { SliderModule } from 'primeng/slider';
+import { DividerModule } from 'primeng/divider';
+import { ChartModule } from 'primeng/chart';
 @NgModule({
   exports: [
     ButtonModule,
@@ -11,6 +15,10 @@ import { MessageModule } from 'primeng/message';
     CardModule,
     MessageModule,
     MessagesModule,
+    InputNumberModule,
+    SliderModule,
+    DividerModule,
+    ChartModule,
   ],
 })
 export class PrimeModule {}
