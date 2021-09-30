@@ -13,15 +13,7 @@ export interface SimulationState {
 export class SimulationStore extends ComponentStore<SimulationState> {
   constructor(private simulationService: SimulationService) {
     super({
-      result: {
-        cM: 0,
-        cF: 0,
-        bM: 0,
-        bF: 0,
-        o: 0,
-        p: 0,
-        total: 0,
-      },
+      result: null,
     });
   }
 

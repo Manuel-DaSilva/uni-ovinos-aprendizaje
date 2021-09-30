@@ -1,15 +1,19 @@
-<header class="flex items-center justify-center mb-14">
+<header class="flex items-center justify-center mb-14 mt-8 fadeIn">
   <div
     class="h-40 w-40 mr-8 rounded-full bg-center bg-cover"
     style="background-image: url('assets/images/ovino1.jpeg')"
   ></div>
-  <p class="text-6xl uppercase font-light">Simulación</p>
+  <p class="text-3xl lg:text-6xl uppercase font-light">Simulación</p>
 </header>
 
-<main>
+<p class="text-center text-gray-700 fadeIn">
+  Rellena toda la información necesaria para conocer el resultado de la
+  simulación!
+</p>
+<main class="fadeIn">
   <form class="flex flex-wrap" [formGroup]="inputForm">
-    <div class="w-1/3 px-4">
-      <div class="bg-gray-200 rounded-md p-4 flex flex-col items-center">
+    <div class="w-full lg:w-1/2 px-4 my-2">
+      <div class="bg-blue-100 rounded-md p-4 flex flex-col items-center">
         <div class="p-field mb-2">
           <h5>Número de corderos</h5>
           <p-inputNumber
@@ -114,8 +118,8 @@
         </div>
       </div>
     </div>
-    <div class="w-1/3 px-4">
-      <div class="bg-gray-200 rounded-md py-4 px-8">
+    <div class="w-full lg:w-1/2 px-4 my-2">
+      <div class="bg-blue-100 rounded-md py-4 px-8">
         <div class="mb-4">
           <h5 class="mb-4">
             Relación macho/hembra: ({{ inputForm.get("rmh")?.value }}/25)
@@ -188,43 +192,55 @@
         </div>
       </div>
     </div>
+  </form>
+  <div
+    class="w-full my-2 flex flex-col items-center"
+    *ngIf="(simulationResult$ | async)?.result as results; else empty"
+  >
+    <p-button
+      class="fixed left-2 bottom-2 fadeIn"
+      label="Ver resultado"
+      icon="pi pi-angle-down"
+      (click)="scrollBottom()"
+    ></p-button>
+    <div class="w-full max-w-xl">
+      <p-chart type="pie" [data]="chartData"></p-chart>
+    </div>
+    <h1 class="text-gray-700 text-xl my-4">Resultados</h1>
+    <div class="mb-4">
+      <div>
+        <h2>
+          <b class="text-gray-700">Número se corderos: </b>{{ results.cM }}
+        </h2>
 
-    <div class="w-1/3">
-      <p-chart *ngIf="chartData" type="pie" [data]="chartData"></p-chart>
+        <h2>
+          <b class="text-gray-700">Número de corderas: </b>{{ results.cF }}
+        </h2>
 
-      <h1 class="text-gray-700 text-xl mb-4">Resultados</h1>
-      <div class="mb-4">
-        <div *ngIf="(simulationResult$ | async)?.result as results">
-          <h2>
-            <b class="text-gray-700">Número se corderos: </b>{{ results.cM }}
-          </h2>
+        <h2>
+          <b class="text-gray-700">Número de borregos: </b>{{ results.bM }}
+        </h2>
 
-          <h2>
-            <b class="text-gray-700">Número de corderas: </b>{{ results.cF }}
-          </h2>
+        <h2>
+          <b class="text-gray-700">Número de borregas: </b>{{ results.bF }}
+        </h2>
 
-          <h2>
-            <b class="text-gray-700">Número de borregos: </b>{{ results.bM }}
-          </h2>
+        <h2><b class="text-gray-700">Número de ovejas: </b>{{ results.o }}</h2>
 
-          <h2>
-            <b class="text-gray-700">Número de borregas: </b>{{ results.bF }}
-          </h2>
+        <h2>
+          <b class="text-gray-700">Número de padrotes: </b>{{ results.p }}
+        </h2>
 
-          <h2>
-            <b class="text-gray-700">Número de ovejas: </b>{{ results.o }}
-          </h2>
-
-          <h2>
-            <b class="text-gray-700">Número de padrotes: </b>{{ results.p }}
-          </h2>
-
-          <h2>
-            <b class="text-gray-700">Número total de animales: </b
-            >{{ results.total }}
-          </h2>
-        </div>
+        <h2>
+          <b class="text-gray-700">Número total de animales: </b
+          >{{ results.total }}
+        </h2>
       </div>
     </div>
-  </form>
+  </div>
+  <ng-template #empty>
+    <div class="w-full text-center my-2">
+      <p>Agrega algunos valores a la simulación para ver los resultados!</p>
+    </div>
+  </ng-template>
 </main>

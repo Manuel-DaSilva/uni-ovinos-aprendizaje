@@ -108,5 +108,7 @@ export class SimulationComponent implements OnInit, OnDestroy {
       });
   }
 
-  updateSomeValue(n: number) {}
+  scrollBottom() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+  }
 }

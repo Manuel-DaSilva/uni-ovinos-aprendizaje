@@ -8,6 +8,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { SliderModule } from 'primeng/slider';
 import { DividerModule } from 'primeng/divider';
 import { ChartModule } from 'primeng/chart';
+import { ScrollTopModule } from 'primeng/scrolltop';
 @NgModule({
   exports: [
     ButtonModule,
@@ -19,6 +20,7 @@ import { ChartModule } from 'primeng/chart';
     SliderModule,
     DividerModule,
     ChartModule,
+    ScrollTopModule,
   ],
 })
 export class PrimeModule {}

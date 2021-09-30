@@ -1,7 +1,10 @@
-<h1 class="text-3xl font-bold mb-8 text-gray-700">Contenido</h1>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<h1 class="text-3xl font-bold mb-8 text-gray-700 mt-8 fadeIn">Contenido</h1>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 fadeIn">
   <div *ngFor="let c of categories">
-    <p-card styleClass="p-card-shadow" [routerLink]="c.id.toString()">
+    <p-card
+      styleClass="p-card-shadow cursor-pointer"
+      [routerLink]="c.id.toString()"
+    >
       <div
         class="w-full h-60 bg-center bg-cover bg-no-repeat rounded-t-md"
         [style]="{ backgroundImage: c.imageUrl | backgroundImage }"
