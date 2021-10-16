@@ -5,5 +5,4 @@ export interface Results {
   bF: number; // borregas
   o: number; // ovejas
   p: number; // padrotes
-  total: number; // total animales
 }

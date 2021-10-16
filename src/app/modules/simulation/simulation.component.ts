@@ -12,7 +12,6 @@ import { debounceTime } from 'rxjs/operators';
 export class SimulationComponent implements OnInit, OnDestroy {
   simulationResult$ = this.simulationStore.simulationResult$;
   inputForm: FormGroup;
-  chartData: any;
   subs: Subscription = Subscription.EMPTY;
   constructor(private simulationStore: SimulationStore) {
     this.inputForm = new FormGroup({
@@ -27,23 +26,23 @@ export class SimulationComponent implements OnInit, OnDestroy {
         Validators.min(1),
         Validators.max(25),
       ]),
-      in: new FormControl(0, [Validators.required, Validators.min(0)]),
-      mc: new FormControl(0, [
+      ind: new FormControl(1.2, [Validators.required, Validators.min(0)]),
+      mc: new FormControl(10, [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
       ]),
-      ma: new FormControl(0, [
+      ma: new FormControl(4, [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
       ]),
-      e: new FormControl(0, [
+      e: new FormControl(10, [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
       ]),
-      r: new FormControl(0, [
+      r: new FormControl(50, [
         Validators.required,
         Validators.min(0),
         Validators.max(100),
@@ -58,7 +57,8 @@ export class SimulationComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.inputForm.valueChanges.subscribe((formValues) => {
       if (this.inputForm.valid) {
-        const { cM, cF, bM, bF, o, p } = formValues;
+        const { cM, cF, bM, bF, o, p, ind, mc, ma, e, r } = formValues;
+        console.log(formValues);
 
         const input: SimulationInput = {
           cM,
@@ -67,6 +67,11 @@ export class SimulationComponent implements OnInit, OnDestroy {
           bF,
           o,
           p,
+          indn: ind,
+          mc,
+          ma,
+          e,
+          r,
         };
 
         this.simulationStore.reactToInputChanges(input);
@@ -74,38 +79,7 @@ export class SimulationComponent implements OnInit, OnDestroy {
     });
     this.subs = this.simulationResult$
       .pipe(debounceTime(500))
-      .subscribe((data) => {
-        this.chartData = {
-          labels: [
-            'Número se corderos',
-            'Número de corderas',
-            'Número de borregos',
-            'Número de borregas',
-            'Número de ovejas',
-            'Número de padrotes',
-          ],
-          datasets: [
-            {
-              data: [
-                data.result?.cM,
-                data.result?.cF,
-                data.result?.bM,
-                data.result?.bF,
-                data.result?.o,
-                data.result?.p,
-              ],
-              backgroundColor: [
-                '#d9ed92',
-                '#b5e48c',
-                '#99d98c',
-                '#76c893',
-                '#52b69a',
-                '#34a0a4',
-              ],
-            },
-          ],
-        };
-      });
+      .subscribe((data) => {});
   }
 
   scrollBottom() {
