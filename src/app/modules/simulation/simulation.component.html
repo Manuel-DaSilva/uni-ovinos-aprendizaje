@@ -195,7 +195,7 @@
     </div>
   </form>
   <div
-    class="w-full my-2 flex flex-col items-center"
+    class="w-full my-2 max-w-4xl mx-auto"
     *ngIf="(simulationResult$ | async)?.results as results; else empty"
   >
     <p-button
@@ -204,7 +204,7 @@
       icon="pi pi-angle-down"
       (click)="scrollBottom()"
     ></p-button>
-    <p-tabView>
+    <p-tabView [scrollable]="true">
       <ng-container *ngFor="let res of results; let i = index">
         <p-tabPanel [header]="'Año: ' + (i + 1)">
           <app-simulation-year-report [data]="res"></app-simulation-year-report>

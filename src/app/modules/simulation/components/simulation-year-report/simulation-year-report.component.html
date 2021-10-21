@@ -1,4 +1,7 @@
-<div class="flex items-center justify-between" *ngIf="data as results">
+<div
+  class="flex flex-wrap lg:flex-nowrap items-center justify-between"
+  *ngIf="data as results"
+>
   <div class="w-full max-w-xl">
     <p-chart type="pie" [data]="chartData"></p-chart>
   </div>
