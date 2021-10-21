@@ -1,27 +1,48 @@
-<ng-container *ngIf="data as results">
-  <pre>{{ results | json }}</pre>
-  <!-- <div class="w-full max-w-xl">
+<div class="flex items-center justify-between" *ngIf="data as results">
+  <div class="w-full max-w-xl">
     <p-chart type="pie" [data]="chartData"></p-chart>
   </div>
-  <h1 class="text-gray-700 text-xl my-4">Resultados</h1>
-  <div class="mb-4">
-    <div>
-      <h2><b class="text-gray-700">Número se corderos: </b>{{ results.cM }}</h2>
+  <div>
+    <h1 class="text-gray-700 text-xl my-4">Resultados</h1>
+    <div class="mb-4">
+      <div>
+        <h2>
+          <b class="text-gray-700">Número de corderos: </b
+          >{{ results.cM | number: ".0-0" }}
+        </h2>
+        <h2>
+          <b class="text-gray-700">Número de corderas: </b
+          >{{ results.cF | number: ".0-0" }}
+        </h2>
+        <h2>
+          <b class="text-gray-700">Número de borregos: </b
+          >{{ results.bM | number: ".0-0" }}
+        </h2>
+        <h2>
+          <b class="text-gray-700">Número de borregas: </b
+          >{{ results.bF | number: ".0-0" }}
+        </h2>
+        <h2>
+          <b class="text-gray-700">Número de ovejas: </b
+          >{{ results.o | number: ".0-0" }}
+        </h2>
+        <h2>
+          <b class="text-gray-700">Número de padrotes: </b
+          >{{ results.p | number: ".0-0" }}
+        </h2>
 
-      <h2><b class="text-gray-700">Número de corderas: </b>{{ results.cF }}</h2>
-
-      <h2><b class="text-gray-700">Número de borregos: </b>{{ results.bM }}</h2>
-
-      <h2><b class="text-gray-700">Número de borregas: </b>{{ results.bF }}</h2>
-
-      <h2><b class="text-gray-700">Número de ovejas: </b>{{ results.o }}</h2>
-
-      <h2><b class="text-gray-700">Número de padrotes: </b>{{ results.p }}</h2>
-
-      <h2>
-        <b class="text-gray-700">Número total de animales: </b
-        >{{ results.total }}
-      </h2>
+        <h2>
+          <b class="text-gray-700">Número total de animales: </b
+          >{{
+            results.cM +
+              results.cF +
+              results.bM +
+              results.bF +
+              results.o +
+              results.p | number: ".0-0"
+          }}
+        </h2>
+      </div>
     </div>
-  </div> -->
-</ng-container>
+  </div>
+</div>

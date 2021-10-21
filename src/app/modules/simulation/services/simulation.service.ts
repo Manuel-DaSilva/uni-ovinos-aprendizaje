@@ -9,17 +9,14 @@ import { SimulationInput } from '../models/simulation-input.model';
 export class SimulationService {
   constructor() {}
 
-  makeSimulation(input: SimulationInput): Results {
+  makeSimulations(input: SimulationInput): Results[] {
     const {
       cM, // corderos
       cF, // corderas
-
       bM, // borregos
       bF, // borregas
-
       o, // ovejas
       p, // padrotes
-
       rmh = 1, // relacion macho hembra
       indn = 0, // indice de natalidad
       mc = 0, // mortalidad crias
@@ -35,101 +32,89 @@ export class SimulationService {
     const indiceReemplazo = r / 100;
     const indiceEliminacion = e / 100;
 
-    const resC = this.calculateResultKind(
-      cF,
+    let actualResult: Results = {
       cM,
-      indn,
-      indiceMortalidadCrias,
-      indiceMortalidadAdultos,
-      indiceReemplazo,
-      indiceEliminacion
-    );
-    const resB = this.calculateResultKind(
+      cF,
       bM,
       bF,
-      indn,
-      indiceMortalidadCrias,
-      indiceMortalidadAdultos,
-      indiceReemplazo,
-      indiceEliminacion
-    );
-    const resO = this.calculateResultKind(
       o,
       p,
-      indn,
-      indiceMortalidadCrias,
-      indiceMortalidadAdultos,
-      indiceReemplazo,
-      indiceEliminacion
-    );
-
-    const results: Results = {
-      cM: resC.machos,
-      cF: resC.hembras,
-      bM: resB.machos,
-      bF: resB.hembras,
-      o: resO.machos,
-      p: resO.hembras,
-      total: resC.total + resB.total + resO.total,
     };
+
+    const results: Results[] = [];
+
+    for (let index = 0; index < 10; index++) {
+      actualResult = this.calculateResult(
+        actualResult.o,
+        actualResult.p,
+        actualResult.bF,
+        actualResult.bM,
+        actualResult.cF,
+        actualResult.cM,
+        indn,
+        indiceMortalidadCrias,
+        indiceMortalidadAdultos,
+        indiceReemplazo,
+        indiceEliminacion
+      );
+
+      results.push(actualResult);
+    }
 
     return results;
   }
 
-  calculateResultKind(
-    totalHembras: number,
-    totalMachos: number,
+  //?? CORDERO -> BORREGO -> OVEJA/PADROTE
+  calculateResult(
+    ovejas: number,
+    padrotes: number,
+    borregas: number,
+    borregos: number,
+    corderas: number,
+    corderos: number,
     indiceNatalidad: number,
     mortalidadCrias: number,
     mortalidadAdultos: number,
     indiceReemplazo: number,
     indiceEliminacion: number
-  ): KindResult {
-    if (totalHembras === 0 || totalMachos === 0) {
-      return {
-        machos: 0,
-        hembras: 0,
-        hembrasCrias: 0,
-        total: 0,
-      };
-    }
+  ): Results {
+    const totalNacidos = ovejas * indiceNatalidad;
 
-    const totalNacidos = totalHembras * indiceNatalidad;
-
-    const hembrasNacidas = totalNacidos * 0.5; //? Esto es relacion macho/hembra?
-    const machosNacidos = totalNacidos - hembrasNacidas;
+    const hembrasNacidas = totalNacidos * 0.5 + corderas; //? Esto es relacion macho/hembra?
+    const machosNacidos = totalNacidos - hembrasNacidas + corderos;
 
     const muertesCriasHembras = hembrasNacidas * mortalidadCrias;
     const muertesCriasMachos = machosNacidos * mortalidadCrias;
 
-    const muertesAdultosHembras = totalHembras * mortalidadAdultos;
-    const muertesAdultosMachos = totalMachos * 0; //? preguntar por la mortalidad de hombres
+    const muertesAdultosHembras = ovejas * mortalidadAdultos;
+    const muertesAdultosMachos = padrotes * 0; //? preguntar por la mortalidad de hombres
 
-    let hembrasAdultasResultantes = totalHembras - muertesAdultosHembras;
-    let machosAdultosResultantes = totalMachos - muertesAdultosMachos;
+    let hembrasAdultasResultantes = ovejas - muertesAdultosHembras;
+    let machosAdultosResultantes = padrotes - muertesAdultosMachos;
 
     let hembrasCriasResultantes = hembrasNacidas - muertesCriasHembras;
     let machosCriasResultantes = machosNacidos - muertesCriasMachos;
 
     const cantidadATraspaso = hembrasCriasResultantes * indiceReemplazo;
 
+    const cantidadBorregas = hembrasCriasResultantes * 0.1;
+    const cantidadBorregos = machosCriasResultantes * 0.1;
+
     hembrasAdultasResultantes += cantidadATraspaso;
     hembrasCriasResultantes -= cantidadATraspaso;
     machosAdultosResultantes++;
     machosCriasResultantes--;
 
-    const hembrasEliminadas = totalHembras * indiceEliminacion;
+    const hembrasEliminadas = ovejas * indiceEliminacion;
     hembrasAdultasResultantes -= hembrasEliminadas;
 
     return {
-      machos: machosAdultosResultantes,
-      hembras: hembrasAdultasResultantes,
-      hembrasCrias: hembrasCriasResultantes,
-      total:
-        //? incluir adultos ?
-        hembrasAdultasResultantes +
-        hembrasCriasResultantes +
-        machosAdultosResultantes,
+      cM: machosCriasResultantes - cantidadBorregos,
+      cF: hembrasCriasResultantes - cantidadBorregas,
+      bM: cantidadBorregos,
+      bF: cantidadBorregas,
+      o: hembrasAdultasResultantes,
+      p: machosAdultosResultantes,
     };
   }
 }

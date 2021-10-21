@@ -9,6 +9,9 @@ import { SliderModule } from 'primeng/slider';
 import { DividerModule } from 'primeng/divider';
 import { ChartModule } from 'primeng/chart';
 import { ScrollTopModule } from 'primeng/scrolltop';
+
+import { TabViewModule } from 'primeng/tabview';
+
 @NgModule({
   exports: [
     ButtonModule,
@@ -21,6 +24,7 @@ import { ScrollTopModule } from 'primeng/scrolltop';
     DividerModule,
     ChartModule,
     ScrollTopModule,
+    TabViewModule,
   ],
 })
 export class PrimeModule {}

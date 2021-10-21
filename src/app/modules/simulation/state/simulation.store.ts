@@ -6,14 +6,14 @@ import { SimulationInput } from '../models/simulation-input.model';
 import { SimulationService } from '../services/simulation.service';
 
 export interface SimulationState {
-  result: Results | null;
+  results: Results[];
 }
 
 @Injectable()
 export class SimulationStore extends ComponentStore<SimulationState> {
   constructor(private simulationService: SimulationService) {
     super({
-      result: null,
+      results: [],
     });
   }
 
@@ -24,9 +24,9 @@ export class SimulationStore extends ComponentStore<SimulationState> {
   readonly reactToInputChanges = this.updater(
     (state, input: SimulationInput) => {
       // TODO add logic here
-      const result = this.simulationService.makeSimulation(input);
+      const results = this.simulationService.makeSimulations(input);
       return {
-        result,
+        results,
       };
     }
   );
