@@ -54,6 +54,24 @@ export class SimulationComponent implements OnInit, OnDestroy {
       this.subs.unsubscribe();
     }
   }
+
+  info = [
+    {
+      severity: 'info',
+
+      detail: `Dentro de esta sección podras realizar una simulación del movimiento de rebaño
+    en ovinos, con un conjunto de valores iniciales e indices parametrizables,
+    podras conocer a lo largo de un periodo de 10 años como se comporta el
+    crecimiento de este rebaño.`,
+    },
+    {
+      severity: 'info',
+
+      detail: `  Para iniciar una simulación solo necesitas establecer la cantidad de ovejas y
+      padrotes dentro del rebaño, el resto de valores tienen los indices generales,
+      modificalos para ver el comportamiento a lo largo de los años.`,
+    },
+  ];
   ngOnInit(): void {
     this.inputForm.valueChanges.subscribe((formValues) => {
       if (this.inputForm.valid) {

@@ -1,4 +1,4 @@
-<header class="flex items-center justify-center mb-14 mt-8 fadeIn">
+<header class="flex items-center justify-center mb-6 mt-8 fadeIn">
   <div
     class="h-40 w-40 mr-8 rounded-full bg-center bg-cover"
     style="background-image: url('assets/images/ovino1.jpeg')"
@@ -6,13 +6,17 @@
   <p class="text-3xl lg:text-6xl uppercase font-light">Simulación</p>
 </header>
 
-<p class="text-center text-gray-700 fadeIn">
-  Rellena toda la información necesaria para conocer el resultado de la
-  simulación!
-</p>
+<div class="mx-auto max-w-2xl flex justify-center">
+  <p-messages
+    [value]="info"
+    [enableService]="false"
+    [closable]="false"
+  ></p-messages>
+</div>
 <main class="fadeIn">
   <form class="flex flex-wrap" [formGroup]="inputForm">
     <div class="w-full lg:w-1/2 px-4 my-2">
+      Valores de inicio:
       <div class="bg-blue-100 rounded-md p-4 flex flex-col items-center">
         <div class="p-field mb-2">
           <h5>Número de ovejas</h5>
@@ -119,6 +123,7 @@
       </div>
     </div>
     <div class="w-full lg:w-1/2 px-4 my-2">
+      Indices parametrizables:
       <div class="bg-blue-100 rounded-md py-4 px-8">
         <!-- <div class="mb-4">
           <h5 class="mb-4">
@@ -196,7 +201,7 @@
   </form>
   <div
     class="w-full my-2 max-w-4xl mx-auto"
-    *ngIf="(simulationResult$ | async)?.results as results; else empty"
+    *ngIf="(simulationResult$ | async)?.results as results"
   >
     <p-button
       class="fixed left-2 bottom-2 fadeIn"
@@ -213,9 +218,12 @@
     </p-tabView>
     <ng-container> </ng-container>
   </div>
-  <ng-template #empty>
-    <div class="w-full text-center my-2">
-      <p>Agrega algunos valores a la simulación para ver los resultados!</p>
-    </div>
-  </ng-template>
+  <div class="w-full text-center mt-2 mb-16">
+    <p class="font-bold">Bibliografia</p>
+    <p>
+      Todos los calculos dentro de esta simulación se basan en los calculos
+      expuestos por: Ing. Alcides Arsenio Sáenz García MSc. en el libro "Ovinos
+      y Caprinos" editorial Universidad Nacional, Marzo, 2007.
+    </p>
+  </div>
 </main>
