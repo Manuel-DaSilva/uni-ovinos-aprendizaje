@@ -16,16 +16,6 @@ const routes: Routes = [
       ),
   },
   {
-    path: 'content',
-    loadChildren: () =>
-      import('./modules/content/content.module').then((m) => m.ContentModule),
-  },
-  {
-    path: 'test',
-    loadChildren: () =>
-      import('./modules/test/test.module').then((m) => m.TestModule),
-  },
-  {
     path: '**',
     pathMatch: 'full',
     component: NotFoundComponent,
